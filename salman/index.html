@@ -45,6 +45,8 @@
             backdrop-filter: blur(5px);
             border: 3px solid #4fc3f7;
             transition: 0.3s;
+            position: relative;
+            z-index: 1;
         }
 
         /* ===== الهيدر ===== */
@@ -79,6 +81,7 @@
         .info-row .label {
             font-weight: bold;
             color: #0d47a1;
+            flex-shrink: 0;
         }
         .info-row .value {
             color: #333;
@@ -86,6 +89,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         /* ===== أقسام خاصة ===== */
@@ -113,6 +118,7 @@
         .section .info-row .value {
             text-align: right;
             font-size: 15px;
+            justify-content: flex-start;
         }
 
         /* ===== قسم الطوارئ ===== */
@@ -128,6 +134,9 @@
         }
         .emergency .info-row .label {
             color: #b71c1c;
+        }
+        .emergency .info-row .value {
+            justify-content: flex-end;
         }
 
         /* ===== ملاحظة الطوارئ ===== */
@@ -224,36 +233,12 @@
             user-select: none;
             z-index: 0;
         }
-        .deco-1 {
-            top: 5%;
-            left: 5%;
-            font-size: 70px;
-        }
-        .deco-2 {
-            bottom: 5%;
-            right: 5%;
-            font-size: 80px;
-        }
-        .deco-3 {
-            top: 15%;
-            right: 10%;
-            font-size: 50px;
-        }
-        .deco-4 {
-            bottom: 20%;
-            left: 8%;
-            font-size: 60px;
-        }
-        .deco-5 {
-            top: 45%;
-            left: 3%;
-            font-size: 45px;
-        }
-        .deco-6 {
-            bottom: 35%;
-            right: 3%;
-            font-size: 55px;
-        }
+        .deco-1 { top: 5%; left: 5%; font-size: 70px; }
+        .deco-2 { bottom: 5%; right: 5%; font-size: 80px; }
+        .deco-3 { top: 15%; right: 10%; font-size: 50px; }
+        .deco-4 { bottom: 20%; left: 8%; font-size: 60px; }
+        .deco-5 { top: 45%; left: 3%; font-size: 45px; }
+        .deco-6 { bottom: 35%; right: 3%; font-size: 55px; }
     </style>
 </head>
 <body>
@@ -277,59 +262,87 @@
         <p class="sub">🛡️ بطاقة هوية وحماية</p>
 
         <!-- ===== البيانات ===== -->
-        <!-- ★★★ غيّر البيانات هنا ★★★ -->
         <div id="data-container">
 
-            <div class="info-row"><span class="label">👤 الاسم:</span><span class="value">سلمان بن أحمد</span></div>
-            <div class="info-row"><span class="label">🎂 العمر:</span><span class="value">٦ سنوات</span></div>
-            <div class="info-row"><span class="label">📅 تاريخ الميلاد:</span><span class="value">٢٠٢٠/٠٥/١٢</span></div>
-            <div class="info-row"><span class="label">🩸 فصيلة الدم:</span><span class="value">O+</span></div>
+            <div class="info-row">
+                <span class="label">👤 الاسم:</span>
+                <span class="value">سلمان بن أحمد</span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">🎂 العمر:</span>
+                <span class="value">٦ سنوات</span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">📅 تاريخ الميلاد:</span>
+                <span class="value">٢٠٢٠/٠٥/١٢</span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">🩸 فصيلة الدم:</span>
+                <span class="value">O+</span>
+            </div>
 
             <div class="section">
                 <div class="section-title">❤️ أحب</div>
-                <div class="info-row"><span class="value">السباحة، كرة القدم، الرسم</span></div>
+                <div class="info-row">
+                    <span class="value">السباحة، كرة القدم، الرسم</span>
+                </div>
             </div>
 
             <div class="section">
                 <div class="section-title">🚫 لا أحب</div>
-                <div class="info-row"><span class="value">الأماكن المظلمة، البصل</span></div>
+                <div class="info-row">
+                    <span class="value">الأماكن المظلمة، البصل</span>
+                </div>
             </div>
 
             <div class="section">
                 <div class="section-title">🏥 المشكلات الصحية</div>
-                <div class="info-row"><span class="value">لا يوجد</span></div>
+                <div class="info-row">
+                    <span class="value">لا يوجد</span>
+                </div>
             </div>
 
             <div class="section">
                 <div class="section-title">🍽️ حساسية غذائية</div>
-                <div class="info-row"><span class="value">حساسية ضد البيض</span></div>
+                <div class="info-row">
+                    <span class="value">حساسية ضد البيض</span>
+                </div>
             </div>
 
             <div class="section">
                 <div class="section-title">💊 أدوية مستخدمة</div>
-                <div class="info-row"><span class="value">لا يوجد</span></div>
+                <div class="info-row">
+                    <span class="value">لا يوجد</span>
+                </div>
             </div>
 
             <div class="section">
                 <div class="section-title">🏫 المدرسة</div>
-                <div class="info-row"><span class="value">مدارس الرياض الأهلية</span></div>
+                <div class="info-row">
+                    <span class="value">مدارس الرياض الأهلية</span>
+                </div>
             </div>
 
             <div class="section">
                 <div class="section-title">📍 العنوان</div>
-                <div class="info-row"><span class="value"><a href="https://www.google.com/maps?q=24.7136+46.6753" target="_blank" class="map-btn">📍 اضغط لفتح الموقع</a></span></div>
+                <div class="info-row">
+                    <span class="value">
+                        <a href="https://www.google.com/maps?q=24.7136+46.6753" target="_blank" class="map-btn">📍 اضغط لفتح الموقع</a>
+                    </span>
+                </div>
             </div>
 
             <!-- ===== قسم الطوارئ ===== -->
             <div class="emergency">
                 <div class="section-title">🚨 للطوارئ</div>
 
-                <!-- ملاحظة قبل الأرقام -->
                 <div class="emergency-note">
                     📌 في حال الطوارئ، اضغط على الأيقونة للاتصال أو المراسلة فوراً
                 </div>
 
-                <!-- رقم الأم -->
                 <div class="info-row">
                     <span class="label">📱 رقم الأم:</span>
                     <span class="value">
@@ -340,7 +353,6 @@
                     </span>
                 </div>
 
-                <!-- رقم الأب -->
                 <div class="info-row">
                     <span class="label">📱 رقم الأب:</span>
                     <span class="value">
@@ -351,7 +363,6 @@
                     </span>
                 </div>
 
-                <!-- رقم قريب آخر -->
                 <div class="info-row">
                     <span class="label">📱 رقم قريب آخر:</span>
                     <span class="value">
@@ -361,12 +372,13 @@
                         </div>
                     </span>
                 </div>
-
             </div>
 
             <div class="section">
                 <div class="section-title">📌 ملاحظات إضافية</div>
-                <div class="info-row"><span class="value">لا يترك مع الغرباء</span></div>
+                <div class="info-row">
+                    <span class="value">لا يترك مع الغرباء</span>
+                </div>
             </div>
 
         </div>
