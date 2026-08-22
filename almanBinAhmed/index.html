@@ -1,1 +1,362 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بطاقتي الآمنة</title>
+    <style>
+        /* ===== إعدادات عامة ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: #e8f5e9;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(255, 183, 197, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(79, 195, 247, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 20% 90%, rgba(255, 235, 59, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 80% 10%, rgba(171, 71, 188, 0.2) 0%, transparent 40%),
+                repeating-linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.1) 0px,
+                    rgba(255, 255, 255, 0.1) 20px,
+                    rgba(255, 183, 197, 0.05) 20px,
+                    rgba(255, 183, 197, 0.05) 40px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 60px 60px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 600px;
+            padding: 30px 25px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            text-align: right;
+            direction: rtl;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(5px);
+            border: 3px solid #4fc3f7;
+            transition: 0.3s;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .header h1 {
+            font-size: 26px;
+            color: #0d47a1;
+        }
+        .header .emoji-big {
+            font-size: 55px;
+        }
+        .sub {
+            font-size: 16px;
+            opacity: 0.7;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .info-row .label {
+            font-weight: bold;
+            color: #0d47a1;
+        }
+        .info-row .value {
+            color: #333;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section {
+            margin-top: 15px;
+            padding: 12px 15px;
+            border-radius: 15px;
+            background: #e3f2fd;
+        }
+
+        .section-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #0d47a1;
+            margin-bottom: 5px;
+        }
+
+        .section .info-row {
+            border-bottom: none;
+            padding: 4px 0;
+        }
+        .section .info-row .label {
+            display: none;
+        }
+        .section .info-row .value {
+            text-align: right;
+            font-size: 15px;
+        }
+
+        .emergency {
+            background: #fff0f0;
+            border-right: 5px solid #d32f2f;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 15px;
+        }
+        .emergency .section-title {
+            color: #d32f2f;
+        }
+        .emergency .info-row .label {
+            color: #b71c1c;
+        }
+
+        /* ===== أزرار التواصل ===== */
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 18px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .contact-btn:hover {
+            transform: scale(1.1);
+        }
+        .btn-whatsapp {
+            background: #25D366;
+            color: #fff;
+        }
+        .btn-call {
+            background: #4CAF50;
+            color: #fff;
+        }
+        .btn-whatsapp:hover {
+            background: #128C7E;
+        }
+        .btn-call:hover {
+            background: #388E3C;
+        }
+
+        .contact-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .map-btn {
+            display: inline-block;
+            background: #4CAF50;
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            margin-top: 3px;
+            transition: 0.3s;
+        }
+        .map-btn:hover {
+            background: #388E3C;
+            transform: scale(1.03);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            opacity: 0.6;
+            color: #555;
+        }
+        .badge {
+            display: inline-block;
+            background: #4CAF50;
+            color: #fff;
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+        }
+
+        /* ===== زخارف الخلفية ===== */
+        .deco {
+            position: fixed;
+            font-size: 40px;
+            opacity: 0.15;
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+        .deco-1 {
+            top: 5%;
+            left: 5%;
+            font-size: 70px;
+        }
+        .deco-2 {
+            bottom: 5%;
+            right: 5%;
+            font-size: 80px;
+        }
+        .deco-3 {
+            top: 15%;
+            right: 10%;
+            font-size: 50px;
+        }
+        .deco-4 {
+            bottom: 20%;
+            left: 8%;
+            font-size: 60px;
+        }
+        .deco-5 {
+            top: 45%;
+            left: 3%;
+            font-size: 45px;
+        }
+        .deco-6 {
+            bottom: 35%;
+            right: 3%;
+            font-size: 55px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== زخارف خلفية ===== -->
+    <div class="deco deco-1">🧸</div>
+    <div class="deco deco-2">🚀</div>
+    <div class="deco deco-3">🌈</div>
+    <div class="deco deco-4">⭐</div>
+    <div class="deco deco-5">🎈</div>
+    <div class="deco deco-6">🦄</div>
+
+    <!-- ===== البطاقة ===== -->
+    <div class="card">
+
+        <!-- ===== الهيدر ===== -->
+        <div class="header">
+            <h1>مرحباً! أنا</h1>
+            <span class="emoji-big">🧒</span>
+        </div>
+        <p class="sub">🛡️ بطاقة هوية وحماية</p>
+
+        <!-- ===== البيانات ===== -->
+        <div id="data-container">
+
+            <div class="info-row"><span class="label">👤 الاسم:</span><span class="value">سلمان بن أحمد</span></div>
+            <div class="info-row"><span class="label">🎂 العمر:</span><span class="value">٦ سنوات</span></div>
+            <div class="info-row"><span class="label">📅 تاريخ الميلاد:</span><span class="value">٢٠٢٠/٠٥/١٢</span></div>
+            <div class="info-row"><span class="label">🩸 فصيلة الدم:</span><span class="value">O+</span></div>
+
+            <div class="section">
+                <div class="section-title">❤️ أحب</div>
+                <div class="info-row"><span class="value">السباحة، كرة القدم، الرسم</span></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🚫 لا أحب</div>
+                <div class="info-row"><span class="value">الأماكن المظلمة، البصل</span></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🏥 المشكلات الصحية</div>
+                <div class="info-row"><span class="value">لا يوجد</span></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🍽️ حساسية غذائية</div>
+                <div class="info-row"><span class="value">حساسية ضد البيض</span></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">💊 أدوية مستخدمة</div>
+                <div class="info-row"><span class="value">لا يوجد</span></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🏫 المدرسة</div>
+                <div class="info-row"><span class="value">مدارس الرياض الأهلية</span></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📍 العنوان</div>
+                <div class="info-row"><span class="value"><a href="https://www.google.com/maps?q=24.7136+46.6753" target="_blank" class="map-btn">📍 اضغط لفتح الموقع</a></span></div>
+            </div>
+
+            <!-- ===== قسم الطوارئ ===== -->
+            <div class="emergency">
+                <div class="section-title">🚨 للطوارئ</div>
+
+                <!-- رقم الأم -->
+                <div class="info-row">
+                    <span class="label">📱 رقم الأم:</span>
+                    <span class="value">
+                        ٠٥٠١٢٣٤٥٦٧
+                        <div class="contact-group">
+                            <a href="tel:0501234567" class="contact-btn btn-call" title="اتصال">📞</a>
+                            <a href="https://wa.me/966501234567" target="_blank" class="contact-btn btn-whatsapp" title="واتساب">💬</a>
+                        </div>
+                    </span>
+                </div>
+
+                <!-- رقم الأب -->
+                <div class="info-row">
+                    <span class="label">📱 رقم الأب:</span>
+                    <span class="value">
+                        ٠٥٥٧٦٥٤٣٢١
+                        <div class="contact-group">
+                            <a href="tel:0557654321" class="contact-btn btn-call" title="اتصال">📞</a>
+                            <a href="https://wa.me/966557654321" target="_blank" class="contact-btn btn-whatsapp" title="واتساب">💬</a>
+                        </div>
+                    </span>
+                </div>
+
+                <!-- رقم قريب آخر -->
+                <div class="info-row">
+                    <span class="label">📱 رقم قريب آخر:</span>
+                    <span class="value">
+                        ٠٥٨٨٨٧٦٦٥٥
+                        <div class="contact-group">
+                            <a href="tel:0588876655" class="contact-btn btn-call" title="اتصال">📞</a>
+                            <a href="https://wa.me/966588876655" target="_blank" class="contact-btn btn-whatsapp" title="واتساب">💬</a>
+                        </div>
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <div class="section-title">📌 ملاحظات إضافية</div>
+                <div class="info-row"><span class="value">لا يترك مع الغرباء</span></div>
+            </div>
+
+        </div>
+
+        <!-- ===== التذييل ===== -->
+        <div class="footer">
+            <span class="badge">🔒 بيانات آمنة</span>
+            <span style="margin-right:10px;">📱 امسح للمساعدة</span>
+        </div>
+
+    </div>
+
+</body>
+</html>
