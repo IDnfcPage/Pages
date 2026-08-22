@@ -55,7 +55,7 @@
         .header-avatar:hover { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(102, 126, 234, 0.25), 0 0 0 12px rgba(102, 126, 234, 0.1), 0 0 50px rgba(102, 126, 234, 0.5), 0 8px 40px rgba(102, 126, 234, 0.4); }
         @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2), 0 0 0 8px rgba(102, 126, 234, 0.1), 0 0 30px rgba(102, 126, 234, 0.3); } 50% { box-shadow: 0 0 0 6px rgba(102, 126, 234, 0.3), 0 0 0 12px rgba(102, 126, 234, 0.15), 0 0 50px rgba(102, 126, 234, 0.5); } }
 
-        /* ===== شبكة المعلومات (بيانات الطالب) - كل في سطر ===== */
+        /* ===== شبكة المعلومات (بيانات الطالب) ===== */
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
         .info-item {
             background: #f8f9ff; padding: 12px 16px; border-radius: 14px; border: 1px solid #f0f0f0;
@@ -86,7 +86,7 @@
         .section-school { background: #f0f7ff; border-color: #0984e320; }
         .section-location { background: #fffbf0; border-color: #f39c1220; }
 
-        /* ===== قسم المدرسة - كل في سطر ===== */
+        /* ===== قسم المدرسة ===== */
         .school-details { display: flex; flex-direction: column; gap: 8px; padding-right: 0; direction: rtl; }
         .school-details .detail {
             display: flex; flex-direction: column; align-items: flex-start; gap: 0px;
@@ -118,10 +118,35 @@
         .notes-section { margin-top: 14px; padding: 14px 18px; background: #f8f9ff; border-radius: 14px; border: 1px dashed #ddd; display: flex; align-items: center; gap: 10px; direction: rtl; }
         .notes-section i { color: #667eea; font-size: 18px; }
         .notes-section .note-text { color: #555; font-size: 14px; text-align: right; }
-        .footer { margin-top: 18px; padding-top: 14px; border-top: 2px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
-        .footer .badge { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #888; }
-        .footer .badge i { color: #4CAF50; }
-        .footer .version { font-size: 11px; color: #ccc; }
+
+        /* ===== التذييل الجديد ===== */
+        .footer {
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 2px solid #f0f0f0;
+            text-align: center;
+            direction: rtl;
+        }
+        .footer .credit {
+            font-size: 13px;
+            color: #888;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            background: #f5f5f5;
+        }
+        .footer .credit:hover {
+            background: #25D366;
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+        }
+        .footer .credit i {
+            margin-left: 6px;
+            font-size: 14px;
+        }
 
         @media (max-width: 480px) {
             .card { padding: 20px 16px; }
@@ -173,7 +198,7 @@
                 <div class="header-avatar">🧒</div>
             </div>
 
-            <!-- بيانات الطالب (كل في سطر منفصل) -->
+            <!-- بيانات الطالب -->
             <div class="info-grid">
                 <div class="info-item">
                     <span class="label"><i class="fas fa-user"></i> الاسم</span>
@@ -204,7 +229,7 @@
             <!-- عنوان المنزل -->
             <div class="section section-location"><div class="section-title"><i class="fas fa-home"></i> عنوان المنزل</div><div class="section-content"><a href="https://www.google.com/maps?q=24.7136+46.6753" target="_blank" class="map-btn"><i class="fas fa-location-dot"></i> اضغط لفتح الموقع</a></div></div>
 
-            <!-- المدرسة (كل في سطر منفصل) -->
+            <!-- المدرسة -->
             <div class="section section-school">
                 <div class="section-title"><i class="fas fa-school"></i> المدرسة</div>
                 <div class="school-details">
@@ -235,8 +260,13 @@
             <!-- ملاحظات -->
             <div class="notes-section"><i class="fas fa-pen"></i><span class="note-text"><strong>ملاحظات:</strong> لا يترك مع الغرباء</span></div>
 
-            <!-- تذييل -->
-            <div class="footer"><div class="badge"><i class="fas fa-lock"></i> بيانات آمنة</div><div class="version"><i class="fas fa-mobile-screen-button"></i> امسح للمساعدة</div></div>
+            <!-- ===== التذييل الجديد ===== -->
+            <div class="footer">
+                <a href="https://wa.me/966570004656" target="_blank" class="credit">
+                    <i class="fab fa-whatsapp"></i> التصميم والبرمجة بواسطة WARD
+                </a>
+            </div>
+
         </div>
     </div>
 </body>
