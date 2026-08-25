@@ -1,275 +1,313 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بطاقتي </title>
-    <!-- ===== خط Cairo ===== -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- ===== Font Awesome ===== -->
+    <title>ملف حماية سلمان | Secure ID</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* ===== إعدادات عامة ===== */
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --glass: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+
         body {
-            display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;
-            direction: rtl;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.15"><circle cx="10" cy="10" r="8" fill="%23ff6b6b"/><circle cx="85" cy="20" r="12" fill="%234ecdc4"/><circle cx="45" cy="5" r="6" fill="%23ffeaa7"/><circle cx="20" cy="80" r="10" fill="%23a29bfe"/><circle cx="75" cy="75" r="9" fill="%23fd79a8"/><circle cx="90" cy="55" r="7" fill="%23fdcb6e"/><circle cx="5" cy="50" r="11" fill="%2355efc4"/><circle cx="55" cy="90" r="8" fill="%2374b9ff"/><rect x="30" y="25" width="10" height="10" rx="2" fill="%23ff7675" transform="rotate(15 35 30)"/><rect x="65" y="40" width="8" height="8" rx="2" fill="%23fdcb6e" transform="rotate(-10 69 44)"/><polygon points="50,60 55,70 45,70" fill="%23fd79a8"/><polygon points="20,30 25,20 30,30" fill="%2355efc4"/><polygon points="70,85 75,75 80,85" fill="%23a29bfe"/></svg>'),
-            radial-gradient(circle at 10% 20%, rgba(255, 183, 197, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 90% 80%, rgba(79, 195, 247, 0.3) 0%, transparent 50%),
-            linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 50%, #e8f5e9 100%);
-            background-size: 300px 300px, 100% 100%, 100% 100%, 100% 100%;
-            background-repeat: repeat, no-repeat, no-repeat, no-repeat;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text-main);
+            overflow-x: hidden;
         }
-        /* ===== زخارف خلفية ===== */
-        .deco-icon { position: fixed; font-size: 50px; opacity: 0.12; pointer-events: none; user-select: none; z-index: 0; }
-        .deco-1 { top: 5%; left: 5%; font-size: 80px; } .deco-2 { bottom: 5%; right: 5%; font-size: 90px; }
-        .deco-3 { top: 20%; right: 2%; font-size: 60px; } .deco-4 { bottom: 25%; left: 2%; font-size: 70px; }
-        .deco-5 { top: 50%; left: 2%; font-size: 50px; } .deco-6 { bottom: 40%; right: 2%; font-size: 65px; }
 
-        /* ===== الحاوية ===== */
-        .container { width: 100%; max-width: 560px; position: relative; z-index: 1; animation: fadeInUp 0.8s ease-out; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* ===== البطاقة ===== */
-        .card {
-            background: rgba(255, 255, 255, 0.93); backdrop-filter: blur(20px); border-radius: 32px; padding: 30px 28px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15); border: 1px solid rgba(255, 255, 255, 0.4);
-            text-align: right; direction: rtl; transition: transform 0.3s ease;
+        /* الخلفية الزخرفية */
+        .bg-blobs {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            top: 0; left: 0;
         }
-        .card:hover { transform: translateY(-3px); }
-
-        /* ===== شريط علوي ===== */
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 2px solid #f0f0f0; }
-        .brand { display: flex; align-items: center; gap: 8px; }
-        .brand-icon { width: 38px; height: 38px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4); }
-        .brand-name { font-size: 22px; font-weight: 800; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .top-badge { background: #e8f5e9; color: #2e7d32; padding: 4px 14px; border-radius: 50px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
-
-        /* ===== الهيدر ===== */
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 15px 20px; background: linear-gradient(135deg, #f8f9ff, #eef1ff); border-radius: 20px; border: 1px solid rgba(102, 126, 234, 0.15); }
-        .header-content h1 { font-size: 26px; font-weight: 800; color: #2d3436; line-height: 1.2; }
-        .header-content h1 span { color: #667eea; }
-        .header-content .sub-title { font-size: 14px; color: #888; font-weight: 400; margin-top: 2px; }
-        .header-avatar { width: 95px; height: 95px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 52px; color: #fff; flex-shrink: 0; box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2), 0 0 0 8px rgba(102, 126, 234, 0.1), 0 0 30px rgba(102, 126, 234, 0.4), 0 8px 32px rgba(102, 126, 234, 0.35); animation: glowPulse 2.5s ease-in-out infinite; transition: all 0.3s ease; }
-        .header-avatar:hover { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(102, 126, 234, 0.25), 0 0 0 12px rgba(102, 126, 234, 0.1), 0 0 50px rgba(102, 126, 234, 0.5), 0 8px 40px rgba(102, 126, 234, 0.4); }
-        @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2), 0 0 0 8px rgba(102, 126, 234, 0.1), 0 0 30px rgba(102, 126, 234, 0.3); } 50% { box-shadow: 0 0 0 6px rgba(102, 126, 234, 0.3), 0 0 0 12px rgba(102, 126, 234, 0.15), 0 0 50px rgba(102, 126, 234, 0.5); } }
-
-        /* ===== شبكة المعلومات (بيانات الطالب) ===== */
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-        .info-item {
-            background: #f8f9ff; padding: 12px 16px; border-radius: 14px; border: 1px solid #f0f0f0;
-            display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
-            direction: rtl; transition: all 0.3s ease;
+        .blob {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            filter: blur(80px);
+            opacity: 0.15;
+            border-radius: 50%;
         }
-        .info-item:hover { border-color: #667eea; transform: translateY(-1px); }
-        .info-item .label { font-size: 11px; color: #999; font-weight: 600; display: flex; align-items: center; gap: 4px; }
-        .info-item .label i { font-size: 12px; color: #667eea; }
-        .info-item .value { font-size: 16px; font-weight: 700; color: #2d3436; text-align: right; width: 100%; }
+        .blob-1 { top: -50px; right: -50px; background: var(--primary); }
+        .blob-2 { bottom: -50px; left: -50px; background: var(--secondary); }
 
-        /* ===== الأقسام العامة ===== */
-        .section { margin-top: 14px; padding: 16px 20px; border-radius: 16px; background: #fafbff; border: 1px solid #f0f0f0; direction: rtl; }
-        .section:hover { border-color: #667eea20; }
-        .section-title { font-size: 15px; font-weight: 700; color: #2d3436; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-        .section-title i { width: 30px; height: 30px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; }
-        .section-content { font-size: 15px; color: #555; padding-right: 38px; text-align: right; }
-
-        /* ===== أقسام ملونة ===== */
-        .section-love .section-title i { background: linear-gradient(135deg, #fd79a8, #e84393); }
-        .section-hate .section-title i { background: linear-gradient(135deg, #fdcb6e, #e17055); }
-        .section-health .section-title i { background: linear-gradient(135deg, #00b894, #00cec9); }
-        .section-school .section-title i { background: linear-gradient(135deg, #0984e3, #6c5ce7); }
-        .section-location .section-title i { background: linear-gradient(135deg, #f39c12, #e67e22); }
-        .section-love { background: #fff5f7; border-color: #fd79a820; }
-        .section-hate { background: #fffbf0; border-color: #fdcb6e20; }
-        .section-health { background: #f0fffa; border-color: #00b89420; }
-        .section-school { background: #f0f7ff; border-color: #0984e320; }
-        .section-location { background: #fffbf0; border-color: #f39c1220; }
-
-        /* ===== قسم المدرسة ===== */
-        .school-details { display: flex; flex-direction: column; gap: 8px; padding-right: 0; direction: rtl; }
-        .school-details .detail {
-            display: flex; flex-direction: column; align-items: flex-start; gap: 0px;
-            font-size: 14px; color: #555;
-            padding: 6px 12px; border-bottom: 1px dashed #eee;
-            background: rgba(255,255,255,0.5); border-radius: 8px;
+        .main-wrapper {
+            width: 100%;
+            max-width: 500px;
+            animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .school-details .detail:last-child { border-bottom: none; }
-        .school-details .detail .d-label { font-size: 11px; color: #999; font-weight: 600; }
-        .school-details .detail .d-value { font-size: 15px; font-weight: 600; color: #2d3436; text-align: right; width: 100%; }
 
-        /* ===== بقية العناصر ===== */
-        .map-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #f39c12, #e67e22); color: #fff; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 14px; transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(243, 156, 18, 0.35); margin-top: 4px; }
-        .map-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(243, 156, 18, 0.45); }
-        .emergency { margin-top: 16px; padding: 18px 20px; border-radius: 18px; background: linear-gradient(135deg, #fff5f5, #ffebee); border: 2px solid #ffcdd2; position: relative; overflow: hidden; direction: rtl; }
-        .emergency::before { content: '🚨'; position: absolute; top: -10px; left: -10px; font-size: 60px; opacity: 0.06; transform: rotate(-15deg); }
-        .emergency .section-title { color: #c62828; }
-        .emergency .section-title i { background: linear-gradient(135deg, #e53935, #c62828); }
-        .emergency-note { background: #fff3cd; padding: 8px 14px; border-radius: 10px; font-size: 13px; color: #856404; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; border-right: 3px solid #ffc107; }
-        .emergency-contact { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(229, 57, 53, 0.1); margin-bottom: 6px; }
-        .emergency-contact:last-child { margin-bottom: 0; }
-        .emergency-contact .contact-label { font-weight: 600; font-size: 14px; color: #555; display: flex; align-items: center; gap: 6px; }
-        .emergency-contact .contact-label i { color: #e53935; font-size: 14px; }
-        .contact-actions { display: flex; gap: 6px; }
-        .contact-btn { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 16px; transition: all 0.3s ease; border: none; cursor: pointer; }
-        .contact-btn:hover { transform: scale(1.1); }
-        .contact-btn.call { background: #4CAF50; color: #fff; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); }
-        .contact-btn.whatsapp { background: #25D366; color: #fff; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); }
-        .notes-section { margin-top: 14px; padding: 14px 18px; background: #f8f9ff; border-radius: 14px; border: 1px dashed #ddd; display: flex; align-items: center; gap: 10px; direction: rtl; }
-        .notes-section i { color: #667eea; font-size: 18px; }
-        .notes-section .note-text { color: #555; font-size: 14px; text-align: right; }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        /* ===== التذييل الجديد (خلفية سوداء) ===== */
-        .footer {
-            margin-top: 18px;
-            padding-top: 14px;
-            border-top: 2px solid #f0f0f0;
+        /* Header */
+        .profile-header {
             text-align: center;
-            direction: rtl;
+            margin-bottom: 25px;
         }
-        .footer .credit {
-            font-size: 14px;
-            color: #ffffff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 50px;
-            background: #000000;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        .avatar-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
         }
-        .footer .credit:hover {
-            background: #25D366;
-            color: #fff;
-            transform: scale(1.05);
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+        .main-avatar {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 35% 65% 68% 32% / 30% 30% 70% 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.3);
+            animation: morph 8s ease-in-out infinite;
         }
-        .footer .credit i {
-            margin-left: 8px;
-            font-size: 16px;
+        @keyframes morph {
+            0%, 100% { border-radius: 35% 65% 68% 32% / 30% 30% 70% 70%; }
+            50% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+        .status-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: var(--success);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            border: 3px solid white;
+        }
+        .profile-header h1 { font-size: 28px; font-weight: 900; color: var(--text-main); }
+        .profile-header p { color: var(--text-muted); font-size: 15px; }
+
+        /* Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
         }
 
-        @media (max-width: 480px) {
-            .card { padding: 20px 16px; }
-            .header { padding: 12px 16px; flex-wrap: wrap; gap: 12px; }
-            .header-content h1 { font-size: 22px; }
-            .header-avatar { width: 75px; height: 75px; font-size: 40px; }
-            .info-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-            .info-item { padding: 10px 12px; }
-            .section { padding: 12px 14px; }
-            .section-content { padding-right: 0; }
-            .emergency { padding: 14px 16px; }
-            .emergency-contact { flex-wrap: wrap; gap: 8px; }
-            .top-bar { flex-wrap: wrap; gap: 8px; }
-            .container { max-width: 100%; }
+        .bento-item {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        @media (max-width: 380px) {
-            .info-grid { grid-template-columns: 1fr; }
-            .header-content h1 { font-size: 18px; }
-            .header-avatar { width: 64px; height: 64px; font-size: 34px; }
+        .bento-item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .bento-item.full-width { grid-column: span 2; }
+
+        .item-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .item-label i { color: var(--primary); }
+        .item-value { font-size: 17px; font-weight: 700; color: var(--text-main); }
+
+        .health-card { background: rgba(240, 253, 244, 0.8); border-color: rgba(16, 185, 129, 0.2); }
+        .health-card .item-label i { color: var(--success); }
+        .alert-card { background: rgba(255, 241, 242, 0.8); border-color: rgba(239, 68, 68, 0.2); }
+        .alert-card .item-label i { color: var(--danger); }
+
+        /* Emergency Hub */
+        .emergency-hub {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            padding: 25px;
+            border-radius: 30px;
+            margin-top: 10px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.3);
+        }
+        .emergency-hub h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #f8fafc;
+        }
+        .contact-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.1);
+            padding: 12px 18px;
+            border-radius: 18px;
+            margin-bottom: 12px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .contact-info .name { font-weight: 700; display: block; font-size: 15px; }
+        .contact-info .relation { font-size: 12px; color: #94a3b8; }
+        .action-btns { display: flex; gap: 10px; }
+        .btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        .btn-call { background: var(--success); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+        .btn-wa { background: #25D366; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); }
+        .btn:hover { transform: scale(1.1) rotate(5deg); }
+
+        .footer-info {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 13px;
+            color: var(--text-muted);
+            padding-bottom: 40px;
+        }
+
+        @media (max-width: 400px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-item.full-width, .emergency-hub { grid-column: span 1; }
         }
     </style>
 </head>
 <body>
-    <!-- زخارف خلفية -->
-    <div class="deco-icon deco-1">🧸</div>
-    <div class="deco-icon deco-2">🚀</div>
-    <div class="deco-icon deco-3">🌈</div>
-    <div class="deco-icon deco-4">⭐</div>
-    <div class="deco-icon deco-5">🎈</div>
-    <div class="deco-icon deco-6">🦄</div>
 
-    <div class="container">
-        <div class="card">
-            <!-- شريط علوي -->
-            <div class="top-bar">
-                <div class="brand">
-                    <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
-                    <span class="brand-name">من أنا</span>
-                </div>
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
 
+    <div class="main-wrapper">
+        <header class="profile-header">
+            <div class="avatar-container">
+                <div class="main-avatar">🧒</div>
+                <div class="status-badge"><i class="fas fa-check-circle"></i> نشط</div>
+            </div>
+            <h1>سلمان بن أحمد</h1>
+            <p>بطاقة حماية رقمية | نسخة 2.0</p>
+        </header>
+
+        <div class="bento-grid">
+            <div class="bento-item">
+                <div class="item-label"><i class="fas fa-cake-candles"></i> العمر</div>
+                <div class="item-value">٦ سنوات</div>
+            </div>
+            <div class="bento-item">
+                <div class="item-label"><i class="fas fa-droplet"></i> فصيلة الدم</div>
+                <div class="item-value" style="color: var(--danger);">O+</div>
+            </div>
+            <div class="bento-item full-width">
+                <div class="item-label"><i class="fas fa-calendar"></i> تاريخ الميلاد</div>
+                <div class="item-value">١٢ مايو ٢٠٢٠</div>
             </div>
 
-            <!-- الهيدر -->
-            <div class="header">
-                <div class="header-content">
-                    <h1>مرحباً! أنا <span>سلمان</span></h1>
-                    <div class="sub-title"><i class="fas fa-shield-alt" style="color:#667eea;font-size:12px;"></i> بطاقة هوية وحماية</div>
-                </div>
-                <div class="header-avatar">🧒</div>
+            <div class="bento-item health-card">
+                <div class="item-label"><i class="fas fa-heartbeat"></i> الحالة الصحية</div>
+                <div class="item-value">سليم / لا يوجد</div>
+            </div>
+            <div class="bento-item alert-card">
+                <div class="item-label"><i class="fas fa-triangle-exclamation"></i> حساسية</div>
+                <div class="item-value">حساسية ضد البيض</div>
             </div>
 
-            <!-- بيانات الطالب -->
-            <div class="info-grid">
-                <div class="info-item">
-                    <span class="label"><i class="fas fa-user"></i> الاسم</span>
-                    <span class="value">علي بن حسين </span>
-                </div>
-                <div class="info-item">
-                    <span class="label"><i class="fas fa-cake-candles"></i> العمر</span>
-                    <span class="value">٦ سنوات</span>
-                </div>
-                <div class="info-item">
-                    <span class="label"><i class="fas fa-calendar"></i> تاريخ الميلاد</span>
-                    <span class="value">٢٠٢٠/٠٥/١٢</span>
-                </div>
-                <div class="info-item">
-                    <span class="label"><i class="fas fa-droplet"></i> فصيلة الدم</span>
-                    <span class="value">O+</span>
-                </div>
+            <div class="bento-item">
+                <div class="item-label"><i class="fas fa-heart" style="color: var(--secondary);"></i> أحب</div>
+                <div class="item-value" style="font-size: 14px;">السباحة، كرة القدم، الرسم</div>
+            </div>
+            <div class="bento-item">
+                <div class="item-label"><i class="fas fa-ban" style="color: var(--accent);"></i> لا أحب</div>
+                <div class="item-value" style="font-size: 14px;">الأماكن المظلمة، البصل</div>
             </div>
 
-            <!-- أحب -->
-            <div class="section section-love"><div class="section-title"><i class="fas fa-heart"></i> أحب</div><div class="section-content">السباحة، كرة القدم، الرسم</div></div>
-            <!-- لا أحب -->
-            <div class="section section-hate"><div class="section-title"><i class="fas fa-ban"></i> لا أحب</div><div class="section-content">الأماكن المظلمة، البصل</div></div>
-            <!-- الصحة -->
-            <div class="section section-health"><div class="section-title"><i class="fas fa-heartbeat"></i> المشكلات الصحية</div><div class="section-content">لا يوجد</div></div>
-            <div class="section section-health"><div class="section-title"><i class="fas fa-utensils"></i> حساسية غذائية</div><div class="section-content">حساسية ضد البيض</div></div>
-            <div class="section section-health"><div class="section-title"><i class="fas fa-pills"></i> أدوية مستخدمة</div><div class="section-content">لا يوجد</div></div>
-            <!-- عنوان المنزل -->
-            <div class="section section-location"><div class="section-title"><i class="fas fa-home"></i> عنوان المنزل</div><div class="section-content"><a href="https://www.google.com/maps?q=24.7136+46.6753" target="_blank" class="map-btn"><i class="fas fa-location-dot"></i> اضغط لفتح الموقع</a></div></div>
-
-            <!-- المدرسة -->
-            <div class="section section-school">
-                <div class="section-title"><i class="fas fa-school"></i> المدرسة</div>
-                <div class="school-details">
-                    <div class="detail">
-                        <span class="d-label">الاسم</span>
-                        <span class="d-value">مدارس الرياض الأهلية</span>
-                    </div>
-                    <div class="detail">
-                        <span class="d-label">📚 الصف</span>
-                        <span class="d-value">الأول الابتدائي</span>
-                    </div>
-                    <div class="detail">
-                        <span class="d-label">🏠 الفصل</span>
-                        <span class="d-value">أ</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- الطوارئ -->
-            <div class="emergency">
-                <div class="section-title"><i class="fas fa-triangle-exclamation"></i> للطوارئ</div>
-                <div class="emergency-note"><i class="fas fa-info-circle"></i> في حال الطوارئ، اضغط على الأيقونة للاتصال أو المراسلة فوراً</div>
-                <div class="emergency-contact"><span class="contact-label"><i class="fas fa-phone"></i> رقم الأم</span><div class="contact-actions"><a href="tel:0501234567" class="contact-btn call"><i class="fas fa-phone"></i></a><a href="https://wa.me/966501234567" target="_blank" class="contact-btn whatsapp"><i class="fab fa-whatsapp"></i></a></div></div>
-                <div class="emergency-contact"><span class="contact-label"><i class="fas fa-phone"></i> رقم الأب</span><div class="contact-actions"><a href="tel:0557654321" class="contact-btn call"><i class="fas fa-phone"></i></a><a href="https://wa.me/966557654321" target="_blank" class="contact-btn whatsapp"><i class="fab fa-whatsapp"></i></a></div></div>
-                <div class="emergency-contact"><span class="contact-label"><i class="fas fa-phone"></i> رقم قريب آخر</span><div class="contact-actions"><a href="tel:0588876655" class="contact-btn call"><i class="fas fa-phone"></i></a><a href="https://wa.me/966588876655" target="_blank" class="contact-btn whatsapp"><i class="fab fa-whatsapp"></i></a></div></div>
-            </div>
-
-            <!-- ملاحظات -->
-            <div class="notes-section"><i class="fas fa-pen"></i><span class="note-text"><strong>ملاحظات:</strong> لا يترك مع الغرباء</span></div>
-
-            <!-- ===== التذييل (خلفية سوداء) ===== -->
-            <div class="footer">
-                <a href="https://wa.me/966570004656" target="_blank" class="credit">
-                    <i class="fab fa-whatsapp"></i> التصميم والبرمجة بواسطة WARD
+            <div class="bento-item full-width">
+                <div class="item-label"><i class="fas fa-school"></i> التعليم والموقع</div>
+                <div class="item-value" style="margin-bottom: 10px; font-size: 15px;">مدارس الرياض الأهلية - الصف الأول (أ)</div>
+                <a href="https://www.google.com/maps?q=24.7136+46.6753" target="_blank" style="text-decoration: none; color: var(--primary); font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                    <i class="fas fa-location-dot"></i> عرض موقع المنزل
                 </a>
             </div>
 
+            <div class="emergency-hub">
+                <h2><i class="fas fa-phone-volume" style="color: var(--danger);"></i> اتصالات الطوارئ</h2>
+                <div class="contact-row">
+                    <div class="contact-info">
+                        <span class="name">والدة سلمان</span>
+                        <span class="relation">جهة اتصال أولى</span>
+                    </div>
+                    <div class="action-btns">
+                        <a href="tel:0501234567" class="btn btn-call"><i class="fas fa-phone"></i></a>
+                        <a href="https://wa.me/966501234567" target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="contact-row">
+                    <div class="contact-info">
+                        <span class="name">والد سلمان</span>
+                        <span class="relation">جهة اتصال ثانية</span>
+                    </div>
+                    <div class="action-btns">
+                        <a href="tel:0557654321" class="btn btn-call"><i class="fas fa-phone"></i></a>
+                        <a href="https://wa.me/966557654321" target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="contact-row">
+                    <div class="contact-info">
+                        <span class="name">قريب العائلة</span>
+                        <span class="relation">جهة اتصال احتياطية</span>
+                    </div>
+                    <div class="action-btns">
+                        <a href="tel:0588876655" class="btn btn-call"><i class="fas fa-phone"></i></a>
+                        <a href="https://wa.me/966588876655" target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-item full-width" style="text-align: center; background: rgba(99, 102, 241, 0.1); border-style: dashed;">
+                <div class="item-value" style="font-size: 15px; color: var(--primary-dark);">
+                    <i class="fas fa-pen-nib"></i> ملاحظة: لا يترك مع الغرباء
+                </div>
+            </div>
         </div>
+
+        <footer class="footer-info">
+            <p><i class="fas fa-shield-alt"></i> تم إنشاء هذه البطاقة لأغراض الحماية والأمان</p>
+        </footer>
     </div>
 </body>
 </html>
