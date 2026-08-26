@@ -152,6 +152,104 @@
         .alert-card { background: rgba(255, 241, 242, 0.8); border-color: rgba(239, 68, 68, 0.2); }
         .alert-card .item-label i { color: var(--danger); }
 
+        /* ===== قسم التعليم والموقع (مفصل) ===== */
+        .info-split {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .info-split .bento-item {
+            padding: 18px 16px;
+        }
+        .info-split .bento-item .item-label {
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .info-split .bento-item .item-value {
+            font-size: 15px;
+        }
+        .info-split .bento-item .item-value i {
+            margin-left: 6px;
+            color: var(--primary);
+        }
+        .info-split .bento-item a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 5px;
+            padding: 4px 12px;
+            background: rgba(99, 102, 241, 0.08);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        .info-split .bento-item a:hover {
+            background: rgba(99, 102, 241, 0.15);
+            transform: translateX(-3px);
+        }
+
+        /* ===== ملاحظة ملفتة ===== */
+        .notice-card {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 3px solid #f59e0b;
+            border-radius: 24px;
+            padding: 18px 22px;
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.25);
+            animation: notice-pulse 2.5s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        .notice-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100px;
+            height: 100px;
+            background: rgba(245, 158, 11, 0.15);
+            border-radius: 50%;
+            filter: blur(60px);
+        }
+        .notice-icon {
+            font-size: 30px;
+            color: #d97706;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+            animation: notice-icon-bounce 2s ease-in-out infinite;
+        }
+        .notice-text {
+            font-size: 17px;
+            font-weight: 900;
+            color: #92400e;
+            position: relative;
+            z-index: 1;
+            line-height: 1.6;
+        }
+        .notice-text span {
+            background: rgba(245, 158, 11, 0.2);
+            padding: 2px 12px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        @keyframes notice-pulse {
+            0%, 100% { box-shadow: 0 8px 30px rgba(245, 158, 11, 0.25); border-color: #f59e0b; }
+            50% { box-shadow: 0 8px 50px rgba(245, 158, 11, 0.45); border-color: #d97706; }
+        }
+        @keyframes notice-icon-bounce {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(-10deg); }
+        }
+
         /* Emergency Hub */
         .emergency-hub {
             grid-column: span 2;
@@ -159,7 +257,7 @@
             color: white;
             padding: 25px;
             border-radius: 30px;
-            margin-top: 10px;
+            margin-top: 5px;
             box-shadow: 0 20px 40px rgba(15, 23, 42, 0.3);
         }
         .emergency-hub h2 {
@@ -360,11 +458,14 @@
             .ward-btn i { font-size: 18px; }
             .footer-text { font-size: 12px; }
             .footer-arrow { display: none; }
+            .info-split { grid-template-columns: 1fr; gap: 10px; }
+            .notice-card { flex-direction: column; text-align: center; padding: 15px; }
+            .notice-text { font-size: 16px; }
         }
 
         @media (max-width: 400px) {
             .bento-grid { grid-template-columns: 1fr; }
-            .bento-item.full-width, .emergency-hub { grid-column: span 1; }
+            .bento-item.full-width, .emergency-hub, .notice-card, .info-split { grid-column: span 1; }
         }
     </style>
 </head>
@@ -381,13 +482,14 @@
                 <div class="main-avatar">
                     <img src="https://raw.githubusercontent.com/IDnfcPage/Pages/main/salman/img1.png" alt="همس">
                 </div>
-                <div class="status-badge"><i class="fas fa-check-circle"></i> نشط</div>
             </div>
             <h1>همس خالد السحيمي</h1>
-            <p>بطاقة حماية رقمية | نسخة 2.0</p>
+            <p>بطاقة تعريفية</p>
         </header>
 
         <div class="bento-grid">
+
+            <!-- ===== المعلومات الأساسية ===== -->
             <div class="bento-item">
                 <div class="item-label"><i class="fas fa-cake-candles"></i> العمر</div>
                 <div class="item-value">8 سنوات</div>
@@ -419,25 +521,46 @@
                 <div class="item-value" style="font-size: 14px;">الأماكن المظلمة، الصوت العالي</div>
             </div>
 
-            <div class="bento-item full-width">
-                <div class="item-label"><i class="fas fa-school"></i> التعليم والموقع</div>
-                <div class="item-value" style="margin-bottom: 10px; font-size: 15px;">الابتدائية الـ76 الصف الثالث (2)</div>
-                <a href="https://maps.app.goo.gl/m1v8iaz6cLmKtxEY8?g_st=com.google.maps.preview.copy" target="_blank" style="text-decoration: none; color: var(--primary); font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                    <i class="fas fa-location-dot"></i> عرض موقع المنزل
-                </a>
+            <!-- ===== فصل التعليم عن الموقع ===== -->
+            <div class="info-split">
+                <div class="bento-item" style="background: rgba(99, 102, 241, 0.05); border-color: rgba(99, 102, 241, 0.15);">
+                    <div class="item-label"><i class="fas fa-school" style="color: var(--primary);"></i> المدرسة</div>
+                    <div class="item-value" style="font-size: 14px;">
+                        <i class="fas fa-graduation-cap"></i> الابتدائية الـ76
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">
+                        <i class="fas fa-user-graduate"></i> الصف الثالث (2)
+                    </div>
+                </div>
+                <div class="bento-item" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.15);">
+                    <div class="item-label"><i class="fas fa-house" style="color: var(--success);"></i> المنزل</div>
+                    <div class="item-value" style="font-size: 14px;">
+                        <i class="fas fa-location-dot" style="color: var(--success);"></i> موقع السكن
+                    </div>
+                    <a href="https://maps.app.goo.gl/m1v8iaz6cLmKtxEY8?g_st=com.google.maps.preview.copy" target="_blank">
+                        <i class="fas fa-map-pin"></i> عرض على الخريطة
+                    </a>
+                </div>
             </div>
 
-                <div class="bento-item full-width" style="text-align: center; background: rgba(99, 102, 241, 0.1); border-style: dashed;">
-                <div class="item-value" style="font-size: 15px; color: var(--primary-dark);">
-                    <i class="fas fa-pen-nib"></i> ملاحظة: لا يترك مع الغرباء
+            <!-- ===== الملاحظة الملفتة (بعد الموقع وقبل الاتصال) ===== -->
+            <div class="notice-card">
+                <div class="notice-icon">
+                    <i class="fas fa-triangle-exclamation"></i>
                 </div>
+                <div class="notice-text">
+                    <span>⚠️ تنبيه هام</span><br>
+                    لا يترك مع الغرباء تحت أي ظرف
+                </div>
+            </div>
 
-                    
+            <!-- ===== قسم الاتصال ===== -->
             <div class="emergency-hub">
                 <h2><i class="fas fa-phone-volume" style="color: var(--danger);"></i> اتصالات الطوارئ</h2>
                 <div class="contact-row">
                     <div class="contact-info">
                         <span class="name">والدة همس</span>
+                        <span class="relation"></span>
                     </div>
                     <div class="action-btns">
                         <a href="tel:0552424133" class="btn btn-call"><i class="fas fa-phone"></i></a>
@@ -447,6 +570,7 @@
                 <div class="contact-row">
                     <div class="contact-info">
                         <span class="name">والد همس</span>
+                        <span class="relation"></span>
                     </div>
                     <div class="action-btns">
                         <a href="tel:0509373426" class="btn btn-call"><i class="fas fa-phone"></i></a>
@@ -456,6 +580,7 @@
                 <div class="contact-row">
                     <div class="contact-info">
                         <span class="name">جهة اتصال اخرى</span>
+                        <span class="relation"></span>
                     </div>
                     <div class="action-btns">
                         <a href="tel:0550103060" class="btn btn-call"><i class="fas fa-phone"></i></a>
@@ -464,14 +589,11 @@
                 </div>
             </div>
 
-        
-            </div>
         </div>
 
         <!-- ===== تذييل WARD المبهر ===== -->
         <footer class="footer-info">
             <div class="footer-card">
-                <!-- جزيئات متحركة -->
                 <div class="particles">
                     <div class="particle"></div>
                     <div class="particle"></div>
