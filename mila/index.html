@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ميلا منصور الثواب </title>
+    <title>ميلا منصور الثواب</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -33,7 +33,6 @@
             overflow-x: hidden;
         }
 
-        /* الخلفية الزخرفية */
         .bg-blobs {
             position: fixed;
             width: 100vw;
@@ -64,7 +63,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Header */
         .profile-header {
             text-align: center;
             margin-bottom: 25px;
@@ -114,7 +112,6 @@
         .profile-header h1 { font-size: 28px; font-weight: 900; color: var(--text-main); }
         .profile-header p { color: var(--text-muted); font-size: 15px; }
 
-        /* Bento Grid */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -152,7 +149,6 @@
         .alert-card { background: rgba(255, 241, 242, 0.8); border-color: rgba(239, 68, 68, 0.2); }
         .alert-card .item-label i { color: var(--danger); }
 
-        /* ===== قسم التعليم والموقع (مفصل) ===== */
         .info-split {
             grid-column: span 2;
             display: grid;
@@ -192,18 +188,15 @@
             transform: translateX(-3px);
         }
 
-        /* ===== ملاحظة ملفتة ===== */
+        /* ===== الملاحظة الملفتة (مرتبة) ===== */
         .notice-card {
             grid-column: span 2;
             background: linear-gradient(135deg, #fef3c7, #fde68a);
             border: 3px solid #f59e0b;
             border-radius: 24px;
-            padding: 18px 22px;
+            padding: 20px 24px;
             box-shadow: 0 8px 30px rgba(245, 158, 11, 0.25);
             animation: notice-pulse 2.5s ease-in-out infinite;
-            display: flex;
-            align-items: center;
-            gap: 15px;
             position: relative;
             overflow: hidden;
         }
@@ -218,27 +211,53 @@
             border-radius: 50%;
             filter: blur(60px);
         }
+        .notice-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
         .notice-icon {
-            font-size: 30px;
+            font-size: 28px;
             color: #d97706;
             flex-shrink: 0;
-            position: relative;
-            z-index: 1;
             animation: notice-icon-bounce 2s ease-in-out infinite;
         }
-        .notice-text {
-            font-size: 17px;
+        .notice-title {
+            font-size: 18px;
             font-weight: 900;
             color: #92400e;
+        }
+        .notice-body {
             position: relative;
             z-index: 1;
+            padding-right: 10px;
+        }
+        .notice-body ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .notice-body ul li {
+            font-size: 15px;
+            color: #78350f;
+            padding: 5px 0;
+            border-bottom: 1px dashed rgba(180, 83, 9, 0.15);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
             line-height: 1.6;
         }
-        .notice-text span {
-            background: rgba(245, 158, 11, 0.2);
-            padding: 2px 12px;
-            border-radius: 12px;
-            display: inline-block;
+        .notice-body ul li:last-child {
+            border-bottom: none;
+        }
+        .notice-body ul li i {
+            color: #d97706;
+            font-size: 14px;
+            margin-top: 4px;
+            flex-shrink: 0;
         }
 
         @keyframes notice-pulse {
@@ -250,7 +269,7 @@
             50% { transform: scale(1.1) rotate(-10deg); }
         }
 
-        /* Emergency Hub */
+        /* ===== Emergency Hub (مرتب) ===== */
         .emergency-hub {
             grid-column: span 2;
             background: linear-gradient(135deg, #1e293b, #0f172a);
@@ -279,6 +298,9 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255,255,255,0.05);
         }
+        .contact-row:last-child {
+            margin-bottom: 0;
+        }
         .contact-info .name { font-weight: 700; display: block; font-size: 15px; }
         .contact-info .relation { font-size: 12px; color: #94a3b8; }
         .action-btns { display: flex; gap: 10px; }
@@ -298,7 +320,7 @@
         .btn-wa { background: #25D366; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); }
         .btn:hover { transform: scale(1.1) rotate(5deg); }
 
-        /* ===== تذييل WARD المبهر ===== */
+        /* ===== تذييل WARD ===== */
         .footer-info {
             margin-top: 30px;
             padding-bottom: 40px;
@@ -325,7 +347,6 @@
                         0 0 80px rgba(96, 165, 250, 0.15);
         }
 
-        /* جزيئات متحركة */
         .particles {
             position: absolute;
             width: 100%;
@@ -355,7 +376,6 @@
             75% { transform: translate(20px, -15px) scale(1.2); opacity: 0.7; }
         }
 
-        /* محتوى التذييل */
         .footer-content {
             position: relative;
             z-index: 2;
@@ -411,7 +431,6 @@
             50% { box-shadow: 0 6px 40px rgba(37, 211, 102, 0.6), 0 0 60px rgba(37, 211, 102, 0.15); }
         }
 
-        /* نجوم وامضة */
         .sparkle-ring {
             position: absolute;
             width: 100%;
@@ -459,8 +478,8 @@
             .footer-text { font-size: 12px; }
             .footer-arrow { display: none; }
             .info-split { grid-template-columns: 1fr; gap: 10px; }
-            .notice-card { flex-direction: column; text-align: center; padding: 15px; }
-            .notice-text { font-size: 16px; }
+            .notice-card { padding: 15px; }
+            .notice-body ul li { font-size: 14px; }
         }
 
         @media (max-width: 400px) {
@@ -480,10 +499,9 @@
         <header class="profile-header">
             <div class="avatar-container">
                 <div class="main-avatar">
-                    <img src="https://raw.githubusercontent.com/IDnfcPage/Pages/main/salman/img1.png" alt="همس">
+                    <img src="https://raw.githubusercontent.com/IDnfcPage/Pages/main/mila/img1.png" alt="ميلا">
                 </div>
-            </div>
-            <h1>همس خالد السحيمي</h1>
+            </divميلا منصور الثواب</h1>
             <p>بطاقة تعريفية</p>
         </header>
 
@@ -521,7 +539,7 @@
                 <div class="item-value" style="font-size: 14px;"> </div>
             </div>
 
-            <!-- ===== فصل التعليم عن الموقع ===== -->
+            <!-- ===== المدرسة والموقع ===== -->
             <div class="info-split">
                 <div class="bento-item" style="background: rgba(99, 102, 241, 0.05); border-color: rgba(99, 102, 241, 0.15);">
                     <div class="item-label"><i class="fas fa-school" style="color: var(--primary);"></i> المدرسة</div>
@@ -543,28 +561,33 @@
                 </div>
             </div>
 
-            <!-- ===== الملاحظة الملفتة (بعد الموقع وقبل الاتصال) ===== -->
+            <!-- ===== الملاحظات (مرتبة) ===== -->
             <div class="notice-card">
-                <div class="notice-icon">
-                    <i class="fas fa-triangle-exclamation"></i>
+                <div class="notice-header">
+                    <div class="notice-icon">
+                        <i class="fas fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="notice-title">تنبيه هام</div>
                 </div>
-                <div class="notice-text">
-                    <span> تنبيه هام</span><br>
-* الاهتمام فيها ومراعاتها لأنها ما زالت صغيرة.
-* إذا احتاجت مساعدة أو ما عرفت تتصرف في شيء، أتمنى تساعدونها وتوجهونها.
-* الانتباه لها في الفسحة والانتقال بين الفصول والأماكن.
-* تشجيعها وتحفيزها إذا أنجزت أو شاركت، لأنها تحب التشجيع كثيرًا.
-* إذا لاحظتوا عليها زعل أو خوف أو إنها مو مرتاحة، أتمنى تبلغوني.
-* إذا صار معها أي موقف أو احتاجت شيء، أتمنى تتواصلون معي.
+                <div class="notice-body">
+                    <ul>
+                        <li><i class="fas fa-heart"></i> الاهتمام فيها ومراعاتها لأنها ما زالت صغيرة.</li>
+                        <li><i class="fas fa-hand-holding-heart"></i> إذا احتاجت مساعدة أو ما عرفت تتصرف في شيء، أتمنى تساعدونها وتوجهونها.</li>
+                        <li><i class="fas fa-walk"></i> الانتباه لها في الفسحة والانتقال بين الفصول والأماكن.</li>
+                        <li><i class="fas fa-star"></i> تشجيعها وتحفيزها إذا أنجزت أو شاركت، لأنها تحب التشجيع كثيرًا.</li>
+                        <li><i class="fas fa-face-frown"></i> إذا لاحظتوا عليها زعل أو خوف أو إنها مو مرتاحة، أتمنى تبلغوني.</li>
+                        <li><i class="fas fa-phone"></i> إذا صار معها أي موقف أو احتاجت شيء، أتمنى تتواصلون معي.</li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- ===== قسم الاتصال ===== -->
+            <!-- ===== قسم الاتصال (مرتب، بدون جهة إضافية) ===== -->
             <div class="emergency-hub">
                 <h2><i class="fas fa-phone-volume" style="color: var(--danger);"></i> اتصالات الطوارئ</h2>
+                
                 <div class="contact-row">
                     <div class="contact-info">
-                        <span class="name">والدة ميلا</span>
+                        <span class="name">والدة همس</span>
                         <span class="relation"></span>
                     </div>
                     <div class="action-btns">
@@ -572,9 +595,10 @@
                         <a href="https://wa.me/966501739550" target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
+
                 <div class="contact-row">
                     <div class="contact-info">
-                        <span class="name">والد ميلا</span>
+                        <span class="name">والد همس</span>
                         <span class="relation"></span>
                     </div>
                     <div class="action-btns">
@@ -582,16 +606,12 @@
                         <a href="https://wa.me/966504895003" target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
-                    <div class="action-btns">
-                        <a href="tel:0550103060" class="btn btn-call"><i class="fas fa-phone"></i></a>
-                        <a href="https://wa.me/966550103060" target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
+
             </div>
 
         </div>
 
-        <!-- ===== تذييل WARD المبهر ===== -->
+        <!-- ===== تذييل WARD ===== -->
         <footer class="footer-info">
             <div class="footer-card">
                 <div class="particles">
