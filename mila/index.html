@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>همس خالد السحيمي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --glass: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* الخلفية الزخرفية */
+        .bg-blobs {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            top: 0; left: 0;
+        }
+        .blob {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            filter: blur(80px);
+            opacity: 0.15;
+            border-radius: 50%;
+        }
+        .blob-1 { top: -50px; right: -50px; background: var(--primary); }
+        .blob-2 { bottom: -50px; left: -50px; background: var(--secondary); }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 500px;
+            animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .avatar-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+        }
+        .main-avatar {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 35% 65% 68% 32% / 30% 30% 70% 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.3);
+            animation: morph 8s ease-in-out infinite;
+            overflow: hidden;
+        }
+        .main-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: inherit;
+        }
+        @keyframes morph {
+            0%, 100% { border-radius: 35% 65% 68% 32% / 30% 30% 70% 70%; }
+            50% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+        .status-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: var(--success);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            border: 3px solid white;
+        }
+        .profile-header h1 { font-size: 28px; font-weight: 900; color: var(--text-main); }
+        .profile-header p { color: var(--text-muted); font-size: 15px; }
+
+        /* Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .bento-item {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .bento-item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .bento-item.full-width { grid-column: span 2; }
+
+        .item-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .item-label i { color: var(--primary); }
+        .item-value { font-size: 17px; font-weight: 700; color: var(--text-main); }
+
+        .health-card { background: rgba(240, 253, 244, 0.8); border-color: rgba(16, 185, 129, 0.2); }
+        .health-card .item-label i { color: var(--success); }
+        .alert-card { background: rgba(255, 241, 242, 0.8); border-color: rgba(239, 68, 68, 0.2); }
+        .alert-card .item-label i { color: var(--danger); }
+
+        /* ===== قسم التعليم والموقع (مفصل) ===== */
+        .info-split {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .info-split .bento-item {
+            padding: 18px 16px;
+        }
+        .info-split .bento-item .item-label {
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .info-split .bento-item .item-value {
+            font-size: 15px;
+        }
+        .info-split .bento-item .item-value i {
+            margin-left: 6px;
+            color: var(--primary);
+        }
+        .info-split .bento-item a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 5px;
+            padding: 4px 12px;
+            background: rgba(99, 102, 241, 0.08);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        .info-split .bento-item a:hover {
+            background: rgba(99, 102, 241, 0.15);
+            transform: translateX(-3px);
+        }
+
+        /* ===== ملاحظة ملفتة ===== */
+        .notice-card {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 3px solid #f59e0b;
+            border-radius: 24px;
+            padding: 18px 22px;
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.25);
+            animation: notice-pulse 2.5s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        .notice-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100px;
+            height: 100px;
+            background: rgba(245, 158, 11, 0.15);
+            border-radius: 50%;
+            filter: blur(60px);
+        }
+        .notice-icon {
+            font-size: 30px;
+            color: #d97706;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+            animation: notice-icon-bounce 2s ease-in-out infinite;
+        }
+        .notice-text {
+            font-size: 17px;
+            font-weight: 900;
+            color: #92400e;
+            position: relative;
+            z-index: 1;
+            line-height: 1.6;
+        }
+        .notice-text span {
+            background: rgba(245, 158, 11, 0.2);
+            padding: 2px 12px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        @keyframes notice-pulse {
+            0%, 100% { box-shadow: 0 8px 30px rgba(245, 158, 11, 0.25); border-color: #f59e0b; }
+            50% { box-shadow: 0 8px 50px rgba(245, 158, 11, 0.45); border-color: #d97706; }
+        }
+        @keyframes notice-icon-bounce {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(-10deg); }
+        }
+
+        /* Emergency Hub */
+        .emergency-hub {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            padding: 25px;
+            border-radius: 30px;
+            margin-top: 5px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.3);
+        }
+        .emergency-hub h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #f8fafc;
+        }
+        .contact-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.1);
+            padding: 12px 18px;
+            border-radius: 18px;
+            margin-bottom: 12px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .contact-info .name { font-weight: 700; display: block; font-size: 15px; }
+        .contact-info .relation { font-size: 12px; color: #94a3b8; }
+        .action-btns { display: flex; gap: 10px; }
+        .btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        .btn-call { background: var(--success); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+        .btn-wa { background: #25D366; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); }
+        .btn:hover { transform: scale(1.1) rotate(5deg); }
+
+        /* ===== تذييل WARD المبهر ===== */
+        .footer-info {
+            margin-top: 30px;
+            padding-bottom: 40px;
+        }
+
+        .footer-card {
+            background: linear-gradient(145deg, #0f2b47, #1a3a5c);
+            padding: 18px 25px;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            background-image: linear-gradient(145deg, #0f2b47, #1a3a5c), 
+                              linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.4), 
+                        0 0 60px rgba(96, 165, 250, 0.08);
+            transition: all 0.5s ease;
+        }
+        .footer-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.5), 
+                        0 0 80px rgba(96, 165, 250, 0.15);
+        }
+
+        /* جزيئات متحركة */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: rgba(96, 165, 250, 0.25);
+            border-radius: 50%;
+            animation: float-particle 8s infinite ease-in-out;
+        }
+        .particle:nth-child(1) { top: 10%; left: 8%; animation-delay: 0s; width: 7px; height: 7px; }
+        .particle:nth-child(2) { top: 15%; right: 12%; animation-delay: 1.5s; background: rgba(167, 139, 250, 0.25); }
+        .particle:nth-child(3) { bottom: 20%; left: 15%; animation-delay: 3s; width: 9px; height: 9px; }
+        .particle:nth-child(4) { bottom: 25%; right: 8%; animation-delay: 4.5s; background: rgba(244, 114, 182, 0.2); }
+
+        @keyframes float-particle {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+            25% { transform: translate(15px, -25px) scale(1.4); opacity: 0.6; }
+            50% { transform: translate(-8px, -40px) scale(1); opacity: 0.4; }
+            75% { transform: translate(20px, -15px) scale(1.2); opacity: 0.7; }
+        }
+
+        /* محتوى التذييل */
+        .footer-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-text {
+            color: #93c5fd;
+            font-size: 13px;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .footer-text i {
+            color: #60a5fa;
+            font-size: 13px;
+        }
+
+        .ward-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            padding: 10px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 18px;
+            color: white;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.35);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            animation: glow-pulse 2.5s ease-in-out infinite;
+            border: 2px solid rgba(255,255,255,0.08);
+        }
+        .ward-btn:hover {
+            transform: scale(1.06) rotate(-1deg);
+            box-shadow: 0 10px 40px rgba(37, 211, 102, 0.55);
+            border-color: rgba(255,255,255,0.2);
+        }
+        .ward-btn i {
+            font-size: 20px;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 6px 25px rgba(37, 211, 102, 0.35); }
+            50% { box-shadow: 0 6px 40px rgba(37, 211, 102, 0.6), 0 0 60px rgba(37, 211, 102, 0.15); }
+        }
+
+        /* نجوم وامضة */
+        .sparkle-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            border-radius: 50px;
+        }
+        .sparkle-ring span {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #fbbf24;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #fbbf24;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        .sparkle-ring span:nth-child(1) { top: -6px; left: 15%; animation-delay: 0s; }
+        .sparkle-ring span:nth-child(2) { top: -6px; right: 15%; animation-delay: 0.5s; }
+        .sparkle-ring span:nth-child(3) { bottom: -6px; left: 20%; animation-delay: 1s; }
+        .sparkle-ring span:nth-child(4) { bottom: -6px; right: 20%; animation-delay: 1.5s; }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.3); opacity: 1; }
+        }
+
+        .footer-arrow {
+            color: #60a5fa;
+            font-size: 14px;
+            opacity: 0.6;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        @media (max-width: 500px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .ward-btn { font-size: 16px; padding: 8px 22px; }
+            .ward-btn i { font-size: 18px; }
+            .footer-text { font-size: 12px; }
+            .footer-arrow { display: none; }
+            .info-split { grid-template-columns: 1fr; gap: 10px; }
+            .notice-card { flex-direction: column; text-align: center; padding: 15px; }
+            .notice-text { font-size: 16px; }
+        }
+
+        @media (max-width: 400px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-item.full-width, .emergency-hub, .notice-card, .info-split { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="main-wrapper">
+        <header class="profile-header">
+            <div class="avatar-container">
+                <div class="main-avatar">
+                    <img src="https://raw.githubusercontent.com/IDnfcPage/Pages/main/salman/img1.png" alt="همس">
+                </div>
+            </div>
+            <h1>همس خالد السحيمي</h1>
+            <p>بطاقة تعريفية</p>
+        </header>
+
+        <div class="bento-grid">
+
+            <!-- ===== المعلومات الأساسية ===== -->
+            <div class="bento-item">
+                <div class="item-label"><i class="fas fa-cake-candles"></i> العمر</div>
+                <div class="item-value">8 سنوات</div>
+            </div>
+            <div class="bento-item">
+                <div class="item-label"><i class="fas fa-droplet"></i> فصيلة الدم</div>
+                <div class="item-value" style="color: var(--danger);">--</div>
+            </div>
+            <div class="bento-item full-width">
+                <div class="item-label"><i class="fas fa-calendar"></i> تاريخ الميلاد</div>
+                <div class="item-value">30-10-2018</div>
+            </div>
+
+            <div class="bento-item health-card">
+                <div class="item-label"><i class="fas fa-heartbeat"></i> الحالة الصحية</div>
+                <div class="item-value">سليم</div>
+            </div>
+            <div class="bento-item alert-card">
+                <div class="item-label"><i class="fas fa-triangle-exclamation"></i> حساسية</div>
+                <div class="item-value">لا يوجد</div>
+            </div>
+
+            <div class="bento-item">
+                <div class="item-label"><i class="fas fa-heart" style="color: var(--secondary);"></i> أحب</div>
+                <div class="item-value" style="font-size: 14px;">الرسم</div>
+            </div>
+            <div class="bento-item">
+                <div class="item-label"><i class="fas fa-ban" style="color: var(--accent);"></i> لا أحب</div>
+                <div class="item-value" style="font-size: 14px;">الأماكن المظلمة، الصوت العالي</div>
+            </div>
+
+            <!-- ===== فصل التعليم عن الموقع ===== -->
+            <div class="info-split">
+                <div class="bento-item" style="background: rgba(99, 102, 241, 0.05); border-color: rgba(99, 102, 241, 0.15);">
+                    <div class="item-label"><i class="fas fa-school" style="color: var(--primary);"></i> المدرسة</div>
+                    <div class="item-value" style="font-size: 14px;">
+                        <i class="fas fa-graduation-cap"></i> الابتدائية الـ76
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">
+                        <i class="fas fa-user-graduate"></i> الصف الثالث (2)
+                    </div>
+                </div>
+                <div class="bento-item" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.15);">
+                    <div class="item-label"><i class="fas fa-house" style="color: var(--success);"></i> المنزل</div>
+                    <div class="item-value" style="font-size: 14px;">
+                        <i class="fas fa-location-dot" style="color: var(--success);"></i> موقع السكن
+                    </div>
+                    <a href="https://maps.app.goo.gl/m1v8iaz6cLmKtxEY8?g_st=com.google.maps.preview.copy" target="_blank">
+                        <i class="fas fa-map-pin"></i> عرض على الخريطة
+                    </a>
+                </div>
+            </div>
+
+            <!-- ===== الملاحظة الملفتة (بعد الموقع وقبل الاتصال) ===== -->
+            <div class="notice-card">
+                <div class="notice-icon">
+                    <i class="fas fa-triangle-exclamation"></i>
+                </div>
+                <div class="notice-text">
+                    <span> تنبيه هام</span><br>
+                    لا يترك مع الغرباء تحت أي ظرف
+                </div>
+            </div>
+
+            <!-- ===== قسم الاتصال ===== -->
+            <div class="emergency-hub">
+                <h2><i class="fas fa-phone-volume" style="color: var(--danger);"></i> اتصالات الطوارئ</h2>
+                <div class="contact-row">
+                    <div class="contact-info">
+                        <span class="name">والدة همس</span>
+                        <span class="relation"></span>
+                    </div>
+                    <div class="action-btns">
+                        <a href="tel:0552424133" class="btn btn-call"><i class="fas fa-phone"></i></a>
+                        <a href="https://wa.me/966552424133" target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="contact-row">
+                    <div class="contact-info">
+                        <span class="name">والد همس</span>
+                        <span class="relation"></span>
+                    </div>
+                    <div class="action-btns">
+                        <a href="tel:0509373426" class="btn btn-call"><i class="fas fa-phone"></i></a>
+                        <a href="https://wa.me/966509373426" target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="contact-row">
+                    <div class="contact-info">
+                        <span class="name">جهة اتصال اخرى</span>
+                        <span class="relation"></span>
+                    </div>
+                    <div class="action-btns">
+                        <a href="tel:0550103060" class="btn btn-call"><i class="fas fa-phone"></i></a>
+                        <a href="https://wa.me/966550103060" target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== تذييل WARD المبهر ===== -->
+        <footer class="footer-info">
+            <div class="footer-card">
+                <div class="particles">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
+
+                <div class="footer-content">
+                    <div class="footer-text">
+                        <i class="fas fa-shield-halved"></i>
+                        تم إنشاء هذه الصفحة بواسطة
+                    </div>
+
+                    <a href="https://wa.me/966570004656" 
+                       target="_blank" 
+                       class="ward-btn">
+                        <i class="fab fa-whatsapp"></i>
+                        WARD
+                        <div class="sparkle-ring">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </a>
+
+                    <div class="footer-arrow">
+                        <i class="fas fa-arrow-left"></i>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
